@@ -1,8 +1,8 @@
 # Node-Red-Oracle
-Node-Red Docker container with Oracle Instantclient and Oracle nodejs package
+Node-Red Docker container with Oracle Instantclient and Oracle node-oracledb package
 
-this Docker container containes Node-Red based on Node6 image with Oracle Instantclient, oracledb nodejs package 
-and node-red with oracledb node
+this Docker container containes Node-Red based on latest Node6 image with Oracle Instantclient,
+plus Oracle node-oracledb and node-red-contrib-oracledb globally installed packages
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/tommi2day/node-red-oracle.svg)](https://hub.docker.com/r/tommi2day/node-red-oracle/)
 
