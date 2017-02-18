@@ -1,0 +1,24 @@
+FROM node:6
+
+ARG ORACLE_VERS=12.1.0.2.0
+ENV FLOWS=flows.json
+ENV TERM=xterm
+
+ADD [ "instantclient.env", "instantclient-*-linux.x64-$ORACLE_VERS.zip","/opt/oracle/" ]
+
+RUN cd /opt/oracle && \
+	apt-get -y update && apt-get install -y unzip libaio1 vim less rlwrap && \
+	for f in instantclient-*-linux.x64-$ORACLE_VERS.zip; do unzip $f; done && \
+	rm -f *.zip && \
+	mv `ls -1d instantclient_*` instantclient && \
+	ln -s `ls -1 /opt/oracle/instantclient/libclntsh.so.*` instantclient/libclntsh.so && \
+	cp  /opt/oracle/instantclient.env /etc/profile.d/oracle.sh && \
+	echo ". /opt/oracle/instantclient.env" >>/root/.bashrc && \
+	mkdir /etc/oracle /data
+RUN . /opt/oracle/instantclient.env && \
+	npm install -g --unsafe-perm oracledb node-red node-red-contrib-oracledb grunt-cli
+VOLUME /etc/oracle /data
+ADD start_node-red.sh /
+WORKDIR /data
+CMD [ "/start_node-red.sh" ]
+
