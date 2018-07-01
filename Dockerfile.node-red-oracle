@@ -1,4 +1,4 @@
-FROM node
+FROM node:8
 
 ARG ORACLE_VERS=12.1.0.2.0
 ENV FLOWS=flows.json
