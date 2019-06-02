@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:10
 
 ARG ORACLE_VERS=12.1.0.2.0
 ENV FLOWS=flows.json
@@ -16,9 +16,8 @@ RUN cd /opt/oracle && \
 	echo ". /opt/oracle/instantclient.env" >>/root/.bashrc && \
 	mkdir /etc/oracle /data
 RUN . /opt/oracle/instantclient.env && \
-	npm install -g --unsafe-perm oracledb node-red node-red-contrib-oracledb grunt-cli
+	npm install -g --unsafe-perm oracledb node-red node-red-contrib-oracledb-mod grunt-cli
 VOLUME /etc/oracle /data
 ADD start_node-red.sh /
 WORKDIR /data
 CMD [ "/start_node-red.sh" ]
-
